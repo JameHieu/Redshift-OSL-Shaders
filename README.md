@@ -137,7 +137,7 @@ A collection of [Open Shading Language (OSL)](https://github.com/AcademySoftware
 
 ![](Imposter_Billboard.png)
 
-- [Imposter_Billboard.osl 📝](Imposter_Billboard.osl)
+- [ImposterBillboard.osl 📝](ImposterBillboard.osl)
 
 ### Iridescence
 
