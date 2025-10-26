@@ -1,14 +1,36 @@
 // -----------------------------------------------------------------------------
 // ImpostorBillboard.osl
-// Author   : JamesDo
+// Author   : JamesDo (Truong Do Trung Hieu)
+// License  : Apache License 2.0
 // Purpose  : Impostor flipbook shader for Redshift OSL
-// Input Image  : Rendered from Lab Impostor Texture
-// Notes    : Used for billboard/flipbook imposters oriented by camera direction
 //
-// License: MIT
-// Copyright (c) 2025 Truong Do Trung Hieu (James Do)
-// Permission is hereby granted, free of charge, to any person obtaining a copy
+// Usage:
+//  - Input Image  : Use texture rendered from "Lab Impostor Texture"
+//  - Ensure X/Y frames (cols/rows) match the layout used when baking the flipbook
+//  - Example: an 8x8 impostor bake → set Number of X Frames = 8, Number of Y Frames = 8
+//
+// Notes:
+//  - Designed for billboard impostors oriented by camera direction
+//  - Supports flipping pitch and interpolation mode
+//
+//
+//
+// License  : Apache License 2.0
+// Copyright 2025 JamesDo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions
+// and limitations under the License.
 // -----------------------------------------------------------------------------
+
 
 shader rs_imposter_flipbook2D_sharp(
     string tex           = ""  
@@ -19,8 +41,8 @@ shader rs_imposter_flipbook2D_sharp(
     int rows             = 8  
         [[ string label = "Number of Y Frames", int min = 1, int max = 10 ]],
 
-    float bleed_fix      = 0.5  
-        [[ string label = "Bleed Fix (0-1)" ]],
+    float bleed_fix      = 0  
+        [[ string label = "Bleed Fix", int min = 0, int max = 1 ]],
 
     vector RayDir        = vector(0,0,1)  
         [[ string label = "Ray Direction" ]],
@@ -36,7 +58,6 @@ shader rs_imposter_flipbook2D_sharp(
            string options = "Bilinear:0|Closest:1" ]],
 
     output color Cout    = 0,
-    output float Aout    = 1
 )
 {
     // --- Clamp & safeguard parameters ---
@@ -81,5 +102,4 @@ shader rs_imposter_flipbook2D_sharp(
 
     // --- Outputs ---
     Cout = texColor;
-    Aout = alpha;
 }
